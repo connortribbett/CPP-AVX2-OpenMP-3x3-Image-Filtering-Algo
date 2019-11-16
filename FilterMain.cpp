@@ -169,12 +169,22 @@ applyFilter(struct Filter *filter, cs1300bmp *input, cs1300bmp *output)
                 __m256 lower3 = _mm256_maskload_ps(&input->color[plane][row+1][col + 1], mask);
                 /*
                 Load 6 pixels of information into 9 vectors
-		ex of 1 tripley of upper, middle, lower
+		ex of data
 		p = pixel e = external info for calculation
+		0  1  2  3  4  5  6  7
+		1
 		e1 e1 e1 e2 e2 e2 0 0
 		e1 p1 e1 e2 p2 e2 0 0
 		e1 e1 e1 e2 e2 e2 0 0
-                */
+                2
+		   e1 e1 e1 e2 e2 e2 0 0
+		   e1 p1 e1 e2 p2 e2 0 0
+		   e1 e1 e1 e2 e2 e2 0 0
+		3
+		      e1 e1 e1 e2 e2 e2 0 0
+		      e1 p1 e1 e2 p2 e2 0 0
+		      e1 e1 e1 e2 e2 e2 0 0
+		*/
                 
                 
                 middle1 = _mm256_mul_ps(middle1, filt.middle);
